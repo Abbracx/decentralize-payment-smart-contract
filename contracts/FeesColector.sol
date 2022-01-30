@@ -4,7 +4,7 @@ pragma solidity ^0.8.1;
 import "@openzeppelin/contracts/interfaces/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract PaymentProcessor is Ownable {
+contract FeesColector is Ownable {
 
     IERC20 public token;
     address public admin;
