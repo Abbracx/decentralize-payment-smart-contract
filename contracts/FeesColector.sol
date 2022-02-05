@@ -38,7 +38,7 @@ contract FeesColector is Ownable {
     }
 
     //Show contracts Token in lock
-    function getContractBalance() public view returns(uint){
+    function getContractTokenBalance() public view returns(uint){
         return token.balanceOf(address(this));
     }
 
@@ -52,7 +52,6 @@ contract FeesColector is Ownable {
         paymentsRecieved[msg.sender].payments[paymentsRecieved[msg.sender].numPayment] = payment;
         paymentsRecieved[msg.sender].numPayment++;
 
-        token.approve(address(this), _amount);
         token.transferFrom(msg.sender, address(this), _amount);
         emit PaymentDone(msg.sender, msg.value, _paymentId, block.timestamp);
     }
