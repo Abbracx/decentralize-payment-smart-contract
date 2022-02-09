@@ -13,23 +13,30 @@ const expect = chai.expect;
 
 
 contract ("Token Test", async(accounts) => {
+    describe.only("Initial State", () => {
 
-    describe("Initial State", () => {
-
-        it("Should have 'name' and 'symbol' specified at the constructor and ...", async() => {});
+        it("Should have 'name' and 'symbol' specified at the constructor and ...", async() => {
+            const name = 'UJToken';
+            const symbol = 'UJT';
+            const admin = accounts[0];
+            const token = await UJToken.new(name, symbol, {from: admin});
+            expect(token.name).to.equal(name);
+            expect(token.symbol).to.equal(symbol);
+        });
+        
         it("Should have ZERO supply, not be paused, and set ZERO balances for all ...", async() => {});
         it("Should list all tokens in my account if having an initial supply", async () => {
           //get the token instance deployed on the blockchain
           let instance = await UJToken.deployed();
           let totalSupply = await instance.totalSupply();
+          let adminAmount = await instance.balanceOf(accounts[0]);
           // let balance = await instance.balanceOf(address[0]);
           // assert.equal(balance.valueOf, totalSupply.valueOf / 2, "The balance was not same ");
-          expect(
-            await instance.balanceOf(accounts[0])
-          ).to.be.a.bignumber.equal();
-          expect(
-            instance.balanceOf(accounts[0])
-          ).to.eventually.be.a.bignumber.not.equal(totalSupply);
+          
+        //   expect(adminAmount).to.be.a.bignumber.equal(BN(1e18));
+        //   expect(
+        //     instance.balanceOf(accounts[0])
+        //   ).to.eventually.be.a.bignumber.equal(BN(totalSupply.toString()).sub(1e22));
         });
     });
 
@@ -54,6 +61,4 @@ contract ("Token Test", async(accounts) => {
     describe("Burning", () => {});
 
     describe("Circuit Breaker", () => {});
-});     
-
-    
+});    
